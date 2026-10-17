@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart &amp; Budget Bundle Builder - KartShelf</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand-wrapper">
+        <a href="/" class="brand-logo">Kart<span>Shelf</span></a>
+      </div>
+
+      <!-- Search Box with autocomplete -->
+      <div class="nav-search-container">
+        <div class="search-box-wrapper">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="searchInput" class="search-input" placeholder="Search craft, decor, electronics..." autocomplete="off">
+        </div>
+        <div id="autocompleteDropdown" class="autocomplete-dropdown">
+          <div class="autocomplete-header">
+            <span>POPULAR MATCHES</span>
+          </div>
+          <div id="autocompleteList"></div>
+        </div>
+      </div>
+
+      <!-- Navigation Actions -->
+      <div class="nav-actions">
+        <a href="/" class="nav-link-btn">&#8592; Continue Shopping</a>
+        <button id="openCartBtn" class="nav-link-btn primary">
+          Cart <span id="cartCountBadge" class="cart-counter-badge">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="catalog-container" style="margin-top: 2rem; grid-template-columns: 1.15fr 0.85fr;">
+    <!-- Left Column: Cart Items -->
+    <section>
+      <div class="section-header-row">
+        <h1 class="section-title" style="font-size: 2rem;">
+          Your Shopping Cart
+        </h1>
+      </div>
+
+      <!-- Summary Banner -->
+      <div style="background: var(--sand-tint); border: 1.5px solid var(--ink); border-radius: var(--radius-md); padding: 0.85rem 1.25rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <div style="font-size: 0.95rem; font-weight: 600;">
+            Total Items: <strong id="headerNodeCount">0</strong> | Total Amount: <strong id="headerNodeTotal" style="color: var(--terracotta); font-size: 1.1rem;">&#8377;0.00</strong>
+          </div>
+        </div>
+        <div style="display: flex; gap: 0.5rem;">
+          <button id="pagePayNowBtn" class="nav-link-btn primary" style="padding: 0.45rem 1rem; font-weight: 700;">
+            💳 Pay Now
+          </button>
+          <button id="cartPageClearBtn" class="nav-link-btn" style="padding: 0.45rem 0.75rem; font-size: 0.82rem;">
+            Clear Cart
+          </button>
+        </div>
+      </div>
+
+      <!-- Cart Item Rows Container -->
+      <div id="cartFullItemsContainer" style="display: flex; flex-direction: column; gap: 1rem;">
+        <!-- Populated via JS -->
+      </div>
+
+      <!-- Empty state container -->
+      <div id="cartEmptyState" style="display: none; text-align: center; padding: 3rem 1rem; background: var(--paper-card); border: var(--border-ink); border-radius: var(--radius-card); box-shadow: var(--shadow-editorial);">
+        <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Your Cart is Empty</h3>
+        <p style="color: var(--ink-muted); margin-bottom: 1.5rem;">Explore our curated collection or use our smart budget bundle builder below!</p>
+        <a href="/" class="nav-link-btn primary" style="display: inline-flex;">Explore Catalog</a>
+      </div>
+    </section>
+
+    <!-- Right Column: Budget Bundle Builder -->
+    <section>
+      <div class="lab-card" style="box-shadow: var(--shadow-editorial-lg); background: var(--soft-sand);">
+        <div class="lab-card-title">
+          <span>Smart Budget Combo Builder</span>
+        </div>
+        <p style="font-size: 0.92rem; color: var(--ink-muted); margin-bottom: 1.25rem;">
+          Tell us your budget and how many products you want. Our intelligent optimization algorithm picks the highest-rated product combo that fits your exact budget.
+        </p>
+
+        <!-- Budget Controls with Typeable Number Inputs -->
+        <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.25rem;">
+          <div>
+            <label for="bundleBudgetInput" style="font-weight: 700; font-size: 0.9rem; display: block; margin-bottom: 0.35rem;">
+              Your Budget (&#8377; INR):
+            </label>
+            <div style="display: flex; gap: 0.5rem;">
+              <input type="number" id="bundleBudgetInput" class="price-input" value="5000" min="500" step="500" style="font-size: 1.1rem; padding: 0.5rem 0.75rem;">
+              <button id="quickBudget3k" class="nav-link-btn" style="padding: 0.35rem 0.65rem; font-size: 0.8rem;">&#8377;3,000</button>
+              <button id="quickBudget5k" class="nav-link-btn" style="padding: 0.35rem 0.65rem; font-size: 0.8rem;">&#8377;5,000</button>
+              <button id="quickBudget10k" class="nav-link-btn" style="padding: 0.35rem 0.65rem; font-size: 0.8rem;">&#8377;10,000</button>
+            </div>
+          </div>
+
+          <!-- Typeable Min and Max Item Selection Inputs -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+            <div>
+              <label for="bundleMinItems" style="font-weight: 600; font-size: 0.85rem; display: block; margin-bottom: 0.25rem;">
+                Min Products (Type count):
+              </label>
+              <input type="number" id="bundleMinItems" class="price-input" value="2" min="1" max="25" placeholder="e.g. 2">
+            </div>
+            <div>
+              <label for="bundleMaxItems" style="font-weight: 600; font-size: 0.85rem; display: block; margin-bottom: 0.25rem;">
+                Max Products (Type count):
+              </label>
+              <input type="number" id="bundleMaxItems" class="price-input" value="5" min="1" max="25" placeholder="e.g. 5">
+            </div>
+          </div>
+
+          <button id="runBundleBtn" class="nav-link-btn primary" style="padding: 0.75rem; font-size: 1rem; justify-content: center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+            Generate Optimal Combo
+          </button>
+        </div>
+
+        <!-- Bundle Results Box -->
+        <div id="bundleResultBox" style="display: none;">
+          <!-- Summary Badges -->
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; background: var(--paper-card); border: 1.5px solid var(--ink); border-radius: var(--radius-sm); padding: 0.75rem;">
+            <div>
+              <div style="font-size: 0.8rem; color: var(--ink-muted);">Combo Cost:</div>
+              <div id="bundleTotalCost" style="font-family: var(--font-heading); font-size: 1.35rem; font-weight: 800;">&#8377;0.00</div>
+            </div>
+            <div>
+              <div style="font-size: 0.8rem; color: var(--ink-muted);">Avg Rating:</div>
+              <div id="bundleAvgRating" style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 700; color: var(--sage-dark);">&#9733; 0.0</div>
+            </div>
+            <div>
+              <div style="font-size: 0.8rem; color: var(--ink-muted);">Savings:</div>
+              <div id="bundleSavings" style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 700; color: var(--terracotta);">&#8377;0.00</div>
+            </div>
+          </div>
+
+          <!-- Items in bundle -->
+          <div id="bundleItemsList" style="display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.25rem;"></div>
+
+          <button id="addBundleToCartBtn" class="nav-link-btn primary" style="width: 100%; padding: 0.75rem; justify-content: center; margin-bottom: 0.5rem;">
+            Add All Combo Items to Cart
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- FAKE PAY NOW CHECKOUT MODAL -->
+  <div id="paymentModalOverlay" class="payment-modal-overlay">
+    <div class="payment-modal">
+      <div class="payment-modal-header">
+        <h3>Secure Checkout &bull; KartShelf</h3>
+        <button id="closePayModalBtn" class="nav-link-btn" style="padding: 0.35rem 0.65rem;">&times;</button>
+      </div>
+
+      <div id="payModalFormBody" class="payment-modal-body">
+        <div>
+          <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.5rem;">1. Shipping &amp; Delivery Details</div>
+          <div class="pay-form-row" style="margin-bottom: 0.5rem;">
+            <div>
+              <label style="font-size: 0.75rem; font-weight: 600;">Full Name</label>
+              <input type="text" id="payNameInput" class="pay-input" value="Shravan Kumar">
+            </div>
+            <div>
+              <label style="font-size: 0.75rem; font-weight: 600;">Mobile Number</label>
+              <input type="tel" id="payPhoneInput" class="pay-input" value="+91 98765 43210">
+            </div>
+          </div>
+          <div class="pay-form-row">
+            <div>
+              <label style="font-size: 0.75rem; font-weight: 600;">Delivery Address</label>
+              <input type="text" id="payAddressInput" class="pay-input" value="Flat 402, Kaveri Heights, Bengaluru">
+            </div>
+            <div>
+              <label style="font-size: 0.75rem; font-weight: 600;">PIN Code</label>
+              <input type="text" id="payPinInput" class="pay-input" value="560001">
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 0.5rem;">2. Select Payment Method</div>
+          <div class="pay-methods-tabs">
+            <button class="pay-tab-btn active" data-tab="tab-upi">📱 UPI</button>
+            <button class="pay-tab-btn" data-tab="tab-cards">💳 Card</button>
+            <button class="pay-tab-btn" data-tab="tab-netbank">🏦 Net Banking</button>
+            <button class="pay-tab-btn" data-tab="tab-cod">💵 Cash on Delivery</button>
+          </div>
+
+          <div id="tab-upi" class="pay-tab-content active" style="margin-top: 0.75rem;">
+            <div style="display: flex; gap: 0.5rem; margin-bottom: 0.6rem;">
+              <span class="recent-chip" style="background: var(--mustard); font-weight: 700;">GPay</span>
+              <span class="recent-chip" style="background: #E8F2F3; font-weight: 700;">PhonePe</span>
+              <span class="recent-chip" style="background: #E8F2F3; font-weight: 700;">Paytm</span>
+            </div>
+            <label style="font-size: 0.78rem; font-weight: 600;">Enter UPI ID / VPA</label>
+            <input type="text" class="pay-input" placeholder="username@okhdfcbank" value="shravan@oksbi">
+          </div>
+
+          <div id="tab-cards" class="pay-tab-content" style="margin-top: 0.75rem;">
+            <div style="margin-bottom: 0.5rem;">
+              <label style="font-size: 0.78rem; font-weight: 600;">Card Number</label>
+              <input type="text" class="pay-input" value="4532 9812 3456 8921">
+            </div>
+            <div class="pay-form-row">
+              <div>
+                <label style="font-size: 0.78rem; font-weight: 600;">Valid Thru</label>
+                <input type="text" class="pay-input" value="09/29">
+              </div>
+              <div>
+                <label style="font-size: 0.78rem; font-weight: 600;">CVV</label>
+                <input type="password" class="pay-input" value="382" maxlength="4">
+              </div>
+            </div>
+          </div>
+
+          <div id="tab-netbank" class="pay-tab-content" style="margin-top: 0.75rem;">
+            <label style="font-size: 0.78rem; font-weight: 600;">Select Bank</label>
+            <select class="select-control" style="width: 100%; margin-top: 0.3rem;">
+              <option>HDFC Bank</option>
+              <option>State Bank of India (SBI)</option>
+              <option>ICICI Bank</option>
+              <option>Axis Bank</option>
+            </select>
+          </div>
+
+          <div id="tab-cod" class="pay-tab-content" style="margin-top: 0.75rem;">
+            <div style="background: var(--sand-tint); border: 1px solid var(--ink); border-radius: 4px; padding: 0.75rem; font-size: 0.85rem;">
+              Pay via Cash or UPI QR Code at the time of delivery. Safe and contactless.
+            </div>
+          </div>
+        </div>
+
+        <div class="pay-summary-box">
+          <div class="pay-summary-row">
+            <span>Items Subtotal:</span>
+            <span id="modalSummarySubtotal">&#8377;0.00</span>
+          </div>
+          <div class="pay-summary-row">
+            <span>Delivery:</span>
+            <span style="color: var(--sage-dark); font-weight: 700;">FREE</span>
+          </div>
+          <div class="pay-summary-total">
+            <span>Total Payable:</span>
+            <span id="modalSummaryTotal">&#8377;0.00</span>
+          </div>
+        </div>
+
+        <button id="confirmPayBtn" class="nav-link-btn primary" style="width: 100%; padding: 0.85rem; font-size: 1.1rem; justify-content: center;">
+          Pay <span id="confirmPayBtnAmt">&#8377;0.00</span> Securely &rarr;
+        </button>
+      </div>
+
+      <div id="payProcessingState" class="pay-processing">
+        <div class="spinner"></div>
+        <h4 style="font-size: 1.25rem; margin-bottom: 0.35rem;">Processing Secure Payment...</h4>
+        <p style="color: var(--ink-muted); font-size: 0.9rem;">Authorizing transaction with bank gateway. Please do not refresh.</p>
+      </div>
+
+      <div id="paySuccessState" class="pay-success-card">
+        <div class="success-check-icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <h2 style="font-size: 1.75rem; margin-bottom: 0.4rem;">Order Placed Successfully! 🎉</h2>
+        <p style="color: var(--ink-muted); font-size: 0.95rem; margin-bottom: 1.25rem;">
+          Thank you for shopping on KartShelf! Your order has been placed.
+        </p>
+
+        <div style="background: var(--soft-sand); border: 1.5px solid var(--ink); border-radius: var(--radius-md); padding: 1rem 1.5rem; width: 100%; max-width: 440px; margin-bottom: 1.5rem; text-align: left; font-size: 0.88rem;">
+          <div style="margin-bottom: 0.4rem;">Order Reference ID: <strong id="successOrderId">#KS-89241</strong></div>
+          <div style="margin-bottom: 0.4rem;">Payment Status: <strong style="color: var(--sage-dark);">Paid &bull; Verified</strong></div>
+          <div>Estimated Delivery: <strong id="successDeliveryDate">3 Business Days</strong></div>
+        </div>
+
+        <button id="successContinueShoppingBtn" class="nav-link-btn primary" style="padding: 0.75rem 1.75rem; font-size: 1rem;">
+          Continue Shopping &rarr;
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

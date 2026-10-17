@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KartShelf DSA Laboratory - Interactive Viva Workbench</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="lab-theme">
+
+  <!-- Header -->
+  <header class="site-header" style="background: var(--paper); border-bottom: 2px solid var(--mustard);">
+    <div class="header-inner">
+      <div class="brand-wrapper">
+        <a href="/" class="brand-logo" style="color: var(--ink);">Kart<span>Shelf</span></a>
+        <span class="brand-tagline" style="background: var(--terracotta); color: #FFF; border-color: #FFF;">
+          DSA LAB WORKBENCH
+        </span>
+      </div>
+
+      <div style="font-family: var(--font-mono); font-size: 0.82rem; color: var(--mustard);">
+        B.Tech ECE &bull; Data Structures &amp; Applications Term Project
+      </div>
+
+      <div class="nav-actions">
+        <a href="/" class="nav-link-btn" style="background: var(--paper-card); color: var(--ink);">
+          &larr; Back to Shop
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="lab-container">
+    <!-- Lab Hero Header Banner -->
+    <div class="lab-header-banner">
+      <div>
+        <h1 style="font-size: 2.2rem; margin-bottom: 0.4rem; color: var(--ink);">
+          Interactive DSA Laboratory &amp; Viva Workbench
+        </h1>
+        <p style="color: var(--ink-muted); max-width: 780px; margin: 0; font-size: 0.95rem;">
+          Real-time visualization and performance analysis of all 24 data structures and algorithms implemented from scratch in pure Python. Use the tabs below to test operations, inspect memory layouts, and review syllabus-to-feature viva mappings.
+        </p>
+      </div>
+      <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+        <span class="dsa-pill" style="background: var(--deep-teal); color: #FFF; border-color: var(--ink);">
+          No heapq / bisect
+        </span>
+        <span class="dsa-pill" style="background: var(--deep-teal); color: #FFF; border-color: var(--ink);">
+          No list.sort()
+        </span>
+        <span class="dsa-pill" style="background: var(--deep-teal); color: #FFF; border-color: var(--ink);">
+          Zero Built-in Collections
+        </span>
+      </div>
+    </div>
+
+    <!-- Unit Navigation Tabs -->
+    <nav class="lab-unit-nav-tabs">
+      <button class="unit-tab-btn active" data-unit="unit-1">Unit I: Linear, Stacks, Queues, PQ</button>
+      <button class="unit-tab-btn" data-unit="unit-2">Unit II: Trees (BST, AVL, B-Tree, B+)</button>
+      <button class="unit-tab-btn" data-unit="unit-3">Unit III: Graphs &amp; Networks (MST)</button>
+      <button class="unit-tab-btn" data-unit="unit-4">Unit IV: Sorting, Searching, Hashing</button>
+      <button class="unit-tab-btn" data-unit="unit-5">Unit V: Trie, Disjoint Set, Backtracking</button>
+      <button class="unit-tab-btn" data-unit="syllabus">Syllabus Viva Mapping Table</button>
+    </nav>
+
+    <!-- =========================================================================
+         TAB 1: UNIT I
+         ========================================================================= -->
+    <section id="unit-1" class="lab-panel active">
+      <div class="lab-grid-2">
+        <!-- Stack, DynamicStack, MultiStack -->
+        <div class="lab-card">
+          <div class="lab-card-title">
+            <span>Stack Implementations</span>
+            <span class="dsa-pill">dsa/stack.py</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--ink-muted); margin-bottom: 0.75rem;">
+            Fixed-capacity Stack, Geometric DynamicStack (resizes at 100% and 25%), and MultiStack (3 stacks in one array).
+          </p>
+
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem; flex-wrap: wrap;">
+            <input type="text" id="stackInputVal" class="price-input" placeholder="Item value" value="Data_Item" style="width: 140px;">
+            <button id="labStackPush" class="nav-link-btn primary" style="padding: 0.4rem 0.8rem;">Push Stack</button>
+            <button id="labStackPop" class="nav-link-btn" style="padding: 0.4rem 0.8rem;">Pop Stack</button>
+            <button id="labDynPush" class="nav-link-btn" style="padding: 0.4rem 0.8rem;">Push Dynamic</button>
+            <button id="labDynPop" class="nav-link-btn" style="padding: 0.4rem 0.8rem;">Pop Dynamic</button>
+          </div>
+
+          <!-- Visualization Box -->
+          <div id="stackVizBox" class="viz-canvas-box" style="flex-direction: column; align-items: flex-start;">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Queues & Deque -->
+        <div class="lab-card">
+          <div class="lab-card-title">
+            <span>Queues &amp; Deque Ring Buffers</span>
+            <span class="dsa-pill">dsa/queue_ds.py</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--ink-muted); margin-bottom: 0.75rem;">
+            CircularQueue ring buffer (Recent searches) and Deque (Recently viewed products).
+          </p>
+
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem; flex-wrap: wrap;">
+            <input type="text" id="queueInputVal" class="price-input" placeholder="Query / Item" value="search_query" style="width: 140px;">
+            <button id="labCqEnqueue" class="nav-link-btn primary" style="padding: 0.4rem 0.8rem;">Enqueue CQ (Ring)</button>
+            <button id="labCqDequeue" class="nav-link-btn" style="padding: 0.4rem 0.8rem;">Dequeue CQ</button>
+            <button id="labDqAddFront" class="nav-link-btn" style="padding: 0.4rem 0.6rem;">Deque +Front</button>
+            <button id="labDqAddRear" class="nav-link-btn" style="padding: 0.4rem 0.6rem;">Deque +Rear</button>
+          </div>
+
+          <div id="queueVizBox" class="viz-canvas-box" style="flex-direction: column; align-items: flex-start;"></div>
+        </div>
+      </div>
+
+      <div class="lab-grid-2">
+        <!-- Priority Queue (Binary Heap vs Linked List PQ) -->
+        <div class="lab-card">
+          <div class="lab-card-title">
+            <span>Binary Heap vs Linked List Priority Queue</span>
+            <span class="dsa-pill">dsa/priority_queue.py</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--ink-muted); margin-bottom: 0.75rem;">
+            Array-based Max-Heap (O(log N) insert/extract) vs Sorted Linked List (O(N) insert, O(1) extract).
+          </p>
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem;">
+            <input type="text" id="heapItemVal" class="price-input" placeholder="Name" value="NewDeal" style="width: 120px;">
+            <input type="number" id="heapPriorityVal" class="price-input" placeholder="Priority" value="48.5" step="0.5" style="width: 90px;">
+            <button id="labHeapInsert" class="nav-link-btn primary" style="padding: 0.4rem 0.8rem;">Insert Heap</button>
+            <button id="labHeapExtract" class="nav-link-btn" style="padding: 0.4rem 0.8rem;">Extract Max</button>
+          </div>
+          <div id="heapVizBox" class="viz-canvas-box"></div>
+        </div>
+
+        <!-- Polynomial & Sparse Matrix -->
+        <div class="lab-card">
+          <div class="lab-card-title">
+            <span>Polynomial Arithmetic &amp; Sparse Matrix</span>
+            <span class="dsa-pill">dsa/linked_list.py</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--ink-muted); margin-bottom: 0.75rem;">
+            Polynomial linked list addition &amp; multiplication; User-product ratings triplet linked list.
+          </p>
+          <div id="polyMatrixVizBox" class="viz-canvas-box" style="flex-direction: column; align-items: flex-start;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         TAB 2: UNIT II (TREES)
+         ========================================================================= -->
+    <section id="unit-2" class="lab-panel">
+      <div class="lab-grid-2">
+        <!-- AVL Tree with Live Rotations -->
+        <div class="lab-card">
+          <div class="lab-card-title">
+            <span>AVL Tree (Self-Balancing BST)</span>
+            <span class="dsa-pill">dsa/avl.py</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--ink-muted); margin-bottom: 0.75rem;">
+            Guaranteed O(log N) lookups. Tracks height balance factor and LL, RR, LR, RL rotation telemetry in real-time.
+          </p>
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem;">
+            <input type="number" id="avlKeyInput" class="price-input" placeholder="ID Key" value="85" style="width: 100px;">
+            <input type="text" id="avlValInput" class="price-input" placeholder="Product Name" value="Handloom Kurta" style="width: 140px;">
+            <button id="labAvlInsert" class="nav-link-btn primary" style="padding: 0.4rem 0.8rem;">Insert (AVL)</button>
+            <button id="labAvlDelete" class="nav-link-btn" style="padding: 0.4rem 0.8rem;">Delete Key</button>
+          </div>
+          <div id="avlTelemetryBar" style="font-family: var(--font-mono); font-size: 0.78rem; margin-bottom: 0.5rem;"></div>
+          <div id="avlVizBox" class="viz-canvas-box"></div>
+        </div>
+
+        <!-- BST & Threaded BST -->
+        <div class="lab-card">
+          <div class="lab-card-title">
+            <span>BST &amp; Threaded BST (Stackless)</span>
+            <span class="dsa-pill">dsa/bst.py</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--ink-muted); margin-bottom: 0.75rem;">
+            BST with recursive and explicit-stack iterative traversals; Threaded BST replaces nulls with predecessor/successor links.
+          </p>
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem;">
+            <input type="number" id="bstKeyInput" class="price-input" placeholder="Price (&#8377;)" value="1250" style="width: 110px;">
+            <button id="labBstInsert" class="nav-link-btn primary" style="padding: 0.4rem 0.8rem;">Insert BST</button>
+            <button id="labBstDelete" class="nav-link-btn" style="padding: 0.4rem 0.8rem;">Delete BST</button>
+          </div>
+          <div id="bstTraversalsBox" style="font-family: var(--font-mono); font-size: 0.75rem; margin-bottom: 0.5rem;"></div>
+          <div id="bstVizBox" class="viz-canvas-box"></div>
+        </div>
+      </div>
+
+      <!-- B-Tree and B+ Tree -->
+      <div class="lab-card" style="margin-top: 1.5rem;">
+        <div class="lab-card-title">
+          <span>B-Tree &amp; B+ Tree (Database Indexing &amp; Range Scans)</span>
+          <span class="dsa-pill">dsa/btree.py</span>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--ink-muted); margin-bottom: 0.75rem;">
+          B-Tree of degree t=2 stores keys in all nodes; B+ Tree keeps data in leaves connected via a singly linked list for rapid range queries.
+        </p>
+        <div id="btreeVizBox" class="viz-canvas-box" style="flex-direction: column; align-items: flex-start;"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         TAB 3: UNIT III (GRAPHS & NETWORKS)
+         ========================================================================= -->
+    <section id="unit-3" class="lab-panel">
+      <div class="lab-grid-2">
+        <!-- Warehouse Delivery Network MST -->
+        <div class="lab-card">
+          <div class="lab-card-title">
+            <span>Warehouse Delivery Network (MST)</span>
+            <span class="dsa-pill">dsa/graph.py: prim_mst / kruskal_mst</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--ink-muted); margin-bottom: 0.75rem;">
+            Weighted graph between Indian distribution centers. Compares Prim's Algorithm vs Kruskal's Algorithm (with DisjointSet cycle detection).
+          </p>
+          <div id="mstResultBox" class="viz-canvas-box" style="flex-direction: column; align-items: flex-start;"></div>
+        </div>
+
+        <!-- Adjacency List & Matrix Dual Representation -->
+        <div class="lab-card">
+          <div class="lab-card-title">
+            <span>Graph Representations &amp; Traversal</span>
+            <span class="dsa-pill">dsa/graph.py: BFS &amp; DFS</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--ink-muted); margin-bottom: 0.75rem;">
+            Adjacency List (memory efficient O(V+E)) vs Adjacency Matrix (O(1) edge test).
+          </p>
+          <div id="graphAdjBox" class="viz-canvas-box" style="flex-direction: column; align-items: flex-start;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         TAB 4: UNIT IV (SORTING, SEARCHING, HASHING)
+         ========================================================================= -->
+    <section id="unit-4" class="lab-panel">
+      <!-- Sorting Head-to-Head Benchmark -->
+      <div class="lab-card" style="margin-bottom: 1.5rem;">
+        <div class="lab-card-title">
+          <span>Sorting Algorithms Benchmark (Head-to-Head)</span>
+          <span class="dsa-pill">dsa/sorting.py</span>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--ink-muted); margin-bottom: 1rem;">
+          Zero built-in sort. All 5 algorithms benchmarked on the 80 product catalog records.
+        </p>
+        <div id="sortingBenchmarkTable" class="complexity-table-wrapper" style="margin-top: 0;"></div>
+      </div>
+
+      <div class="lab-grid-2">
+        <!-- Sort Stability Demonstrator -->
+        <div class="lab-card">
+          <div class="lab-card-title">
+            <span>Sort Stability Demonstrator</span>
+            <span class="dsa-pill">Merge (Stable) vs Quick (Unstable)</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--ink-muted); margin-bottom: 0.75rem;">
+            Products pre-sorted by Price are then sorted by Rating. Notice how Merge Sort preserves price order for tied ratings while Quick Sort scrambles them!
+          </p>
+          <div id="stabilityVizBox" class="viz-canvas-box" style="flex-direction: column; align-items: flex-start;"></div>
+        </div>
+
+        <!-- Linear vs Binary Search Comparison -->
+        <div class="lab-card">
+          <div class="lab-card-title">
+            <span>Linear vs Binary Search Telemetry</span>
+            <span class="dsa-pill">dsa/searching.py</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--ink-muted); margin-bottom: 0.75rem;">
+            SKU search comparison counters demonstrating O(N) linear scan vs O(log N) binary search.
+          </p>
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem;">
+            <input type="text" id="searchTargetSkuInput" class="price-input" value="KS-ELEC-012" style="width: 140px;">
+            <button id="runSearchCompareBtn" class="nav-link-btn primary" style="padding: 0.4rem 0.8rem;">Compare Searches</button>
+          </div>
+          <div id="searchingVizBox" class="viz-canvas-box" style="flex-direction: column; align-items: flex-start;"></div>
+        </div>
+      </div>
+
+      <!-- Hash Table with Configurable Hash Functions & Collision Strategies -->
+      <div class="lab-card" style="margin-top: 1.5rem;">
+        <div class="lab-card-title">
+          <span>Hash Table: Functions &amp; Collision Strategies</span>
+          <span class="dsa-pill">dsa/hashing.py: HashTable</span>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--ink-muted); margin-bottom: 1rem;">
+          Custom bucket array with zero dict storage. Switch between Division, Mid-Square, and Folding hash functions and Chaining vs Open Addressing (Linear / Quadratic probing).
+        </p>
+
+        <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin-bottom: 1rem;">
+          <div>
+            <label style="font-size: 0.85rem; font-weight: 700;">Hash Function:</label>
+            <select id="hashFnSelect" class="select-control">
+              <option value="division" selected>Division Method (k mod m)</option>
+              <option value="mid_square">Mid-Square Method</option>
+              <option value="folding">Folding Method</option>
+            </select>
+          </div>
+
+          <div>
+            <label style="font-size: 0.85rem; font-weight: 700;">Collision Strategy:</label>
+            <select id="collisionStrategySelect" class="select-control">
+              <option value="chaining" selected>Separate Chaining (Open Hashing)</option>
+              <option value="linear">Linear Probing (Closed Hashing)</option>
+              <option value="quadratic">Quadratic Probing</option>
+            </select>
+          </div>
+
+          <div style="display: flex; gap: 0.5rem; align-items: flex-end;">
+            <input type="text" id="newHashKeyInput" class="price-input" placeholder="New SKU" value="KS-NEW-99" style="width: 120px;">
+            <button id="insertHashKeyBtn" class="nav-link-btn primary" style="padding: 0.45rem 0.85rem;">Insert Entry</button>
+          </div>
+        </div>
+
+        <div id="hashingTelemetryBar" style="font-family: var(--font-mono); font-size: 0.8rem; margin-bottom: 0.75rem;"></div>
+        <div id="hashingBucketsViz" class="viz-canvas-box" style="flex-direction: column; align-items: flex-start;"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         TAB 5: UNIT V (TRIE, DISJOINT SET, BACKTRACKING)
+         ========================================================================= -->
+    <section id="unit-5" class="lab-panel">
+      <div class="lab-grid-2">
+        <!-- Trie Prefix Tree -->
+        <div class="lab-card">
+          <div class="lab-card-title">
+            <span>Prefix Trie (Digital Search Tree)</span>
+            <span class="dsa-pill">dsa/trie.py: Trie</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--ink-muted); margin-bottom: 0.75rem;">
+            Trie character branch paths powering search autocomplete with highlighted prefix matching.
+          </p>
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem;">
+            <input type="text" id="trieTestPrefix" class="price-input" placeholder="Prefix" value="air" style="width: 120px;">
+            <button id="testTrieBtn" class="nav-link-btn primary" style="padding: 0.4rem 0.8rem;">Query Trie</button>
+          </div>
+          <div id="trieVizBox" class="viz-canvas-box" style="flex-direction: column; align-items: flex-start;"></div>
+        </div>
+
+        <!-- Disjoint Set (Union-Find) -->
+        <div class="lab-card">
+          <div class="lab-card-title">
+            <span>Disjoint Set (Union-Find by Rank)</span>
+            <span class="dsa-pill">dsa/disjoint_set.py</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--ink-muted); margin-bottom: 0.75rem;">
+            Manages product variant families and cycle detection with Path Compression and Union by Rank (near O(1) amortized).
+          </p>
+          <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem;">
+            <input type="number" id="dsId1" class="price-input" placeholder="Product ID 1" value="1" style="width: 100px;">
+            <input type="number" id="dsId2" class="price-input" placeholder="Product ID 2" value="2" style="width: 100px;">
+            <button id="dsUnionBtn" class="nav-link-btn primary" style="padding: 0.4rem 0.8rem;">Union Sets</button>
+          </div>
+          <div id="disjointSetVizBox" class="viz-canvas-box" style="flex-direction: column; align-items: flex-start;"></div>
+        </div>
+      </div>
+
+      <!-- Decision Matrix Table -->
+      <div class="lab-card" style="margin-top: 1.5rem;">
+        <div class="lab-card-title">
+          <span>"Which Data Structure Should I Use?" &bull; Engineering Decision Matrix</span>
+        </div>
+        <div class="complexity-table-wrapper" style="margin-top: 0;">
+          <table class="complexity-table">
+            <thead>
+              <tr>
+                <th>Data Structure</th>
+                <th>Time Complexity (Average)</th>
+                <th>Time Complexity (Worst)</th>
+                <th>Space Complexity</th>
+                <th>Real-World E-Commerce Use Case</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Array Stack</strong></td>
+                <td>Push O(1), Pop O(1)</td>
+                <td>O(1)</td>
+                <td>O(N)</td>
+                <td>Back/Forward navigation and Undo last filter action</td>
+              </tr>
+              <tr>
+                <td><strong>Circular Queue</strong></td>
+                <td>Enqueue O(1), Dequeue O(1)</td>
+                <td>O(1)</td>
+                <td>O(K) bounded</td>
+                <td>Recent search history ring buffer (auto-drops oldest)</td>
+              </tr>
+              <tr>
+                <td><strong>Circular Linked List</strong></td>
+                <td>Rotate O(1)</td>
+                <td>O(1)</td>
+                <td>O(N)</td>
+                <td>Featured boutique infinite looping product carousel</td>
+              </tr>
+              <tr>
+                <td><strong>Header Linked List</strong></td>
+                <td>Access Totals O(1), Search O(N)</td>
+                <td>O(N)</td>
+                <td>O(N)</td>
+                <td>Shopping Cart with instant access to item count &amp; total price</td>
+              </tr>
+              <tr>
+                <td><strong>Binary Max-Heap</strong></td>
+                <td>Insert O(log N), Extract O(log N)</td>
+                <td>O(log N)</td>
+                <td>O(N)</td>
+                <td>Top Deals ranking by discount % and Best Rated products</td>
+              </tr>
+              <tr>
+                <td><strong>AVL Tree</strong></td>
+                <td>Search/Insert/Delete O(log N)</td>
+                <td>O(log N) guaranteed</td>
+                <td>O(N)</td>
+                <td>Product lookup by primary ID with strict height balancing</td>
+              </tr>
+              <tr>
+                <td><strong>B+ Tree</strong></td>
+                <td>Range Search O(log N + K)</td>
+                <td>O(log N + K)</td>
+                <td>O(N)</td>
+                <td>Price-range filter scan via connected leaf linked list</td>
+              </tr>
+              <tr>
+                <td><strong>Graph (BFS)</strong></td>
+                <td>O(V + E)</td>
+                <td>O(V + E)</td>
+                <td>O(V + E)</td>
+                <td>"Customers Also Bought" multi-hop relationship discovery</td>
+              </tr>
+              <tr>
+                <td><strong>Kruskal's MST</strong></td>
+                <td>O(E log E)</td>
+                <td>O(E log E)</td>
+                <td>O(V)</td>
+                <td>Warehouse-to-city distribution delivery route optimization</td>
+              </tr>
+              <tr>
+                <td><strong>Merge Sort</strong></td>
+                <td>O(N log N)</td>
+                <td>O(N log N)</td>
+                <td>O(N)</td>
+                <td>Catalog sorting with stability guarantee for equal price ties</td>
+              </tr>
+              <tr>
+                <td><strong>Hash Table (Chaining)</strong></td>
+                <td>O(1)</td>
+                <td>O(N)</td>
+                <td>O(M + N)</td>
+                <td>SKU to Product Symbol Table &amp; Real-time Stock Dictionary</td>
+              </tr>
+              <tr>
+                <td><strong>Prefix Trie</strong></td>
+                <td>Autocomplete O(L + K)</td>
+                <td>O(L + K)</td>
+                <td>O(ALPHABET * L * N)</td>
+                <td>Search box as-you-type autocomplete with highlighted prefixes</td>
+              </tr>
+              <tr>
+                <td><strong>Disjoint Set (UF)</strong></td>
+                <td>O(&alpha;(N)) &asymp; O(1)</td>
+                <td>O(&alpha;(N))</td>
+                <td>O(N)</td>
+                <td>Product variant clustering (same product in color/size variants)</td>
+              </tr>
+              <tr>
+                <td><strong>Backtracking</strong></td>
+                <td>Branch &amp; Bound</td>
+                <td>Pruned search</td>
+                <td>O(Depth)</td>
+                <td>Budget Bundle Builder (pick 3-5 items maximizing rating)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         TAB 6: SYLLABUS VIVA MAPPING TABLE
+         ========================================================================= -->
+    <section id="syllabus" class="lab-panel">
+      <div class="lab-card">
+        <div class="lab-card-title">
+          <span>Official Syllabus-to-Feature Viva Mapping Table</span>
+          <span class="dsa-pill">All 5 Units Covered</span>
+        </div>
+        <p style="font-size: 0.9rem; color: var(--ink-muted); margin-bottom: 1.25rem;">
+          Detailed academic reference linking every course unit and concept directly to its Python source module, application feature, and time/space complexity analysis.
+        </p>
+        <div class="complexity-table-wrapper" style="margin-top: 0;">
+          <table class="complexity-table">
+            <thead>
+              <tr>
+                <th>Unit</th>
+                <th>Syllabus Concept</th>
+                <th>Python Source Code</th>
+                <th>KartShelf Feature</th>
+                <th>Time &amp; Space Complexity</th>
+              </tr>
+            </thead>
+            <tbody id="syllabusTableBody">
+              <!-- Rendered dynamically from /api/lab/syllabus -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/js/lab.js"></script>
+</body>
+</html>
